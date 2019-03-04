@@ -3,7 +3,7 @@
 # parameter 2 is the path to the directory
 if [[ -z "$1" ]] || [[ -z "$2" ]]; then
   echo "Installing moodledata in local storage"
-  PATH = "/var/moodledata"
+  path="/var/moodledata"
 fi
     echo "Application data will be stored on $1:$2"
     apt -y install apache2 mysql-client php php-fpm libapache2-mod-php
@@ -14,13 +14,13 @@ fi
     cp -r lms/* /var/www/html/
     chmod -R 0755 /var/www/html
 
-    if [[ -z "$PATH" ]]; then
+    if [[ -z "$path" ]]; then
       mkdir /mnt/moodledata
       mount $1:$2 /mnt/moodledata
     else
-      mkdir $PATH
-      chown -R www-data $PATH
-      chmod -R 777 $PATH
+      mkdir $path
+      chown -R www-data $path
+      chmod -R 777 $path
     fi
 
     cronjob="*/1 * * * * /usr/bin/php  /var/www/html/admin/cli/cron.php >/dev/null"
