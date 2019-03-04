@@ -12,7 +12,7 @@ fi
 
     rm /var/www/html/index.html
     cp -r lms/* /var/www/html/
-    chmod -R 0755 /var/www/html/Integra-LMS
+    chmod -R 0755 /var/www/html
 
     if [[ -z "$PATH" ]]; then
       mkdir /mnt/moodledata
@@ -23,6 +23,6 @@ fi
       chmod -R 777 $PATH
     fi
 
-    cronjob="*/1 * * * * /usr/bin/php  /var/www/html/Integra-LMS/admin/cli/cron.php >/dev/null"
+    cronjob="*/1 * * * * /usr/bin/php  /var/www/html/admin/cli/cron.php >/dev/null"
     (crontab -u www-data -l; echo "$cronjob" ) | crontab -u www-data -
     echo "Ready to go"
