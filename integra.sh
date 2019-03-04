@@ -10,7 +10,7 @@ fi
     apt -y install graphviz aspell ghostscript clamav php-pspell php-curl php-gd php-intl php-mysql php-xml php-xmlrpc php-ldap php-zip php-soap php-mbstring
     service apache2 restart
 
-    cp -r integra /var/www/html/
+    cp -r lms /var/www/html/
     chmod -R 0755 /var/www/html/Integra-LMS
 
     if [[ -z "$PATH" ]]; then
@@ -22,5 +22,6 @@ fi
       chmod -R 777 $PATH
     fi
 
-    crontab -u www-data -e
-    */1 * * * * /usr/bin/php  /var/www/html/Integra-LMS/admin/cli/cron.php >/dev/null
+    cronjob="*/1 * * * * /usr/bin/php  /var/www/html/Integra-LMS/admin/cli/cron.php >/dev/null"
+    (crontab -u www-data -e; echo "$cronjob" ) | crontab -u www-data -e
+    echo "Ready to go"
